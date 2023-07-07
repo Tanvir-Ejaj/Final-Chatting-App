@@ -1,0 +1,66 @@
+.regi-main {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.regi-logo {
+  margin-bottom: 42px;
+}
+
+.regi-text {
+  text-align: center;
+}
+
+.regi-text h1 {
+  color: var(--blue);
+  font-size: 34.401px;
+  font-family: var(--primary-font);
+  font-weight: 700;
+}
+
+.regi-text h2 {
+  margin: 11px;
+  opacity: 0.5;
+  color: var(--blue);
+  font-size: 20.641px;
+  font-family: var(--primary-font);
+  font-weight: 400;
+}
+
+.regi-inputs {
+  margin: 51px;
+  width: 100%;
+  text-align: center;
+}
+
+.regi-inputs button {
+  margin-top: 50px;
+  width: 75% !important;
+  padding: 15px 0;
+  border-radius: 85px;
+  -webkit-border-radius: 85px;
+  -moz-border-radius: 85px;
+  -ms-border-radius: 85px;
+  -o-border-radius: 85px;
+  background: var(--bgcolor);
+  color: var(--white);
+  font-size: 20.641px;
+  font-weight: 600;
+}
+
+.regi-inputs p{
+  font-size: 16px;
+  color: var(--blue);
+  opacity: 0.5;
+  font-weight: 400;
+  margin-top: 30px;
+}
+
+.regi-inputs p span{
+  color: red;
+  font-weight: 600;
+}
