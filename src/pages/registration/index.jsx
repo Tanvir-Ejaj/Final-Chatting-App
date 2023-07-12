@@ -48,6 +48,16 @@ function Registration() {
         formik.values.password
       )
         .then(() => {
+          toast.success("Registration Successfull!", {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+            theme: "light",
+          });
           formik.resetForm();
           setLoading(false);
           navigate("/login");
@@ -159,7 +169,7 @@ function Registration() {
                   ) : null}
                   {loading ? (
                     <Button variant="contained" type="submit" disabled>
-                      <BeatLoader size="22" color="#086fa4" />
+                      <BeatLoader color="#086fa4" />
                     </Button>
                   ) : (
                     <Button variant="contained" type="submit">

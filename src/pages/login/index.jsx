@@ -1,17 +1,21 @@
+/* eslint-disable no-unused-vars */
 import { Button, Container, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import { SignIn } from "../../validation/validation";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import Grid from "@mui/material/Unstable_Grid2";
+import { ToastContainer, toast } from "react-toastify";
 import "./style.css";
 
 const Login = () => {
   const auth = getAuth();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   // For Password show
   const [passShow, setPassShow] = useState("password");
   const handleShow = () => {
@@ -31,16 +35,43 @@ const Login = () => {
     initialValues: initialvalues,
     validationSchema: SignIn,
     onSubmit: () => {
+      setLoading(true);
       signInWithEmailAndPassword(
         auth,
         formik.values.email,
         formik.values.password
       )
         .then(() => {
-          console.log("milse");
+          formik.resetForm();
+          setLoading(false);
+          navigate("/");
         })
         .catch((error) => {
-          console.log(error.code);
+          setLoading(false);
+          formik.resetForm();
+          if (error.code.includes("auth/user-not-found")) {
+            toast.error("Invalid Email", {
+              position: "top-right",
+              autoClose: 1000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: false,
+              draggable: false,
+              progress: undefined,
+              theme: "light",
+            });
+          } else if (error.code.includes("auth/wrong-password")) {
+            toast.error("Wrong Password", {
+              position: "top-right",
+              autoClose: 1000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: false,
+              draggable: false,
+              progress: undefined,
+              theme: "light",
+            });
+          }
         });
     },
   });
@@ -48,6 +79,7 @@ const Login = () => {
   return (
     <div>
       <Container fixed>
+        <ToastContainer />
         <Grid container spacing={2} justifyContent="center">
           <Grid xs={6}>
             <div className="regi-main">
@@ -97,7 +129,7 @@ const Login = () => {
                   ) : null}
                   {loading ? (
                     <Button variant="contained" type="submit" disabled>
-                      <BeatLoader size="22" color="#086fa4" />
+                      <BeatLoader color="#086fa4" />
                     </Button>
                   ) : (
                     <Button variant="contained" type="submit">
@@ -107,7 +139,7 @@ const Login = () => {
                 </form>
                 <div className="returns">
                   <p>
-                    Don't Have any account?
+                    Do not Have any account?
                     <Link to="/registration">
                       <span>Sign In</span>
                     </Link>
